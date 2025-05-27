@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GesturePlay - Dinosaur & Flappy Bird</title>
+    <link rel="stylesheet" href="dinosaur&flappybird.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="menu-screen" class="screen active">
+        <div class="menu-container">
+            <div class="logo-section">
+                <div class="game-logo">GesturePlay</div>
+                <h1>Choose Your Game</h1>
+                <p class="tagline">Control games with hand gestures! Play the classic Chrome Dinosaur game, which transforms into Flappy Bird at 2000 points.</p>
+            </div>
+            
+            <div class="game-selection">
+                <div class="game-card" id="dino-game-btn">
+                    <div class="game-preview dino-preview"></div>
+                    <div class="game-info">
+                        <h3>Dinosaur Runner</h3>
+                        <p>Jump over obstacles and duck under birds</p>
+                    </div>
+                </div>
+                
+                <div class="game-card" id="flappy-game-btn">
+                    <div class="game-preview flappy-preview"></div>
+                    <div class="game-info">
+                        <h3>Flappy Bird</h3>
+                        <p>Navigate through pipes with precision</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls-section">
+                <h2>Gesture Controls</h2>
+                <div class="controls-container">
+                    <div class="control-card">
+                        <div class="gesture-icon">👆</div>
+                        <div class="gesture-name">Index Finger</div>
+                        <div class="gesture-action">Jump / Fly Up</div>
+                    </div>
+                    
+                    <div class="control-card">
+                        <div class="gesture-icon">✌️</div>
+                        <div class="gesture-name">Index + Middle</div>
+                        <div class="gesture-action">Duck / Fly Down</div>
+                    </div>
+                </div>
+                
+                <div class="webcam-section">
+                    <div id="webcam-status" class="status-badge">
+                        <div class="status-icon"></div>
+                        <span>Model loaded! Click "Enable Webcam" to start.</span>
+                    </div>
+                    <button id="webcam-permission" class="primary-btn">Enable Webcam</button>
+                    <button id="calibrate-gestures" class="secondary-btn">Calibrate Gestures</button>
+                </div>
+            </div>
+            
+            <footer class="menu-footer">
+                <div class="action-buttons">
+                    <button id="debug-webcam" class="text-btn">Debug Webcam</button>
+                    <button id="reset-game" class="text-btn">Reset Game</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <div id="game-screen" class="screen">
+        <div id="game-container">
+            <canvas id="game-canvas"></canvas>
+            <div id="score-display">Score: 0</div>
+            <div id="gesture-display">Gesture: None</div>
+        </div>
+        <button id="back-to-menu" class="menu-btn">Back to Menu</button>
+        <div id="webcam-preview-container"></div>
+    </div>
+
+    <!-- Game over screen - will be created dynamically -->
+
+    <!-- Load TensorFlow.js and Handpose model -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script>
+    <script src="game.js"></script>
+</body>
+</html>
