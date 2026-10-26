@@ -1,0 +1,7 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Vite 8 and Vitest 5 need Node 22.12 or newer; "22" resolves to the latest 22.x.
+  NODE_VERSION = "22"
