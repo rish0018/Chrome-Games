@@ -1,0 +1,221 @@
+@import 'tailwindcss';
+
+/* Keep in sync with src/art/palette.ts (a test enforces it). */
+@theme static {
+  --font-pixel: 'Press Start 2P', ui-monospace, monospace;
+  --font-sans: 'Pixelify Sans', ui-monospace, monospace;
+
+  --color-paper: #f3ead2;
+  --color-paper-2: #e7dbb8;
+  --color-paper-3: #d3c395;
+  --color-ink: #1b2a1b;
+  --color-ink-soft: #3d523d;
+  --color-green: #306230;
+  --color-lcd: #9bbc0f;
+  --color-lcd-dark: #0f380f;
+  --color-sky: #7fcff5;
+  --color-sky-pale: #cdeefc;
+  --color-orange: #ef8a2a;
+  --color-red: #d9473a;
+  --color-yellow: #f7d44a;
+
+  --animate-blink: blink 1s steps(2, jump-none) infinite;
+  --animate-pop: pop 0.24s steps(4, end);
+  --animate-rise: rise 0.4s steps(5, end) both;
+
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  @keyframes pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes rise {
+    0% {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.35;
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  background-image: radial-gradient(rgba(27, 42, 27, 0.13) 1px, transparent 1px);
+  background-size: 6px 6px;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+:focus-visible {
+  outline: 4px solid var(--color-orange);
+  outline-offset: 2px;
+}
+
+/* Component classes live in a layer so Tailwind utilities (mx-auto, m-0...) can override them. */
+@layer components {
+/* Notched pixel border: four 4px shadows leave the corners empty. */
+.px-box {
+  --bg: var(--color-paper);
+  margin: 4px;
+  background: var(--bg);
+  box-shadow:
+    0 -4px 0 0 var(--color-ink),
+    0 4px 0 0 var(--color-ink),
+    -4px 0 0 0 var(--color-ink),
+    4px 0 0 0 var(--color-ink),
+    8px 12px 0 0 rgba(27, 42, 27, 0.22);
+}
+
+.px-box-flat {
+  margin: 4px;
+  background: var(--bg, var(--color-paper-2));
+  box-shadow:
+    0 -4px 0 0 var(--color-ink),
+    0 4px 0 0 var(--color-ink),
+    -4px 0 0 0 var(--color-ink),
+    4px 0 0 0 var(--color-ink);
+}
+
+/* Game Boy style LCD readout. */
+.lcd {
+  margin: 4px;
+  color: var(--color-lcd-dark);
+  background: var(--color-lcd);
+  box-shadow:
+    0 -4px 0 0 var(--color-ink),
+    0 4px 0 0 var(--color-ink),
+    -4px 0 0 0 var(--color-ink),
+    4px 0 0 0 var(--color-ink),
+    inset 4px 4px 0 0 rgba(15, 56, 15, 0.28);
+}
+
+.px-btn {
+  --bg: var(--color-orange);
+  --fg: var(--color-ink);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  margin: 4px;
+  padding: 14px 18px;
+  border: 0;
+  color: var(--fg);
+  background: var(--bg);
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  box-shadow:
+    0 -4px 0 0 var(--color-ink),
+    0 4px 0 0 var(--color-ink),
+    -4px 0 0 0 var(--color-ink),
+    4px 0 0 0 var(--color-ink),
+    inset -4px -4px 0 0 rgba(27, 42, 27, 0.28),
+    inset 4px 4px 0 0 rgba(255, 255, 255, 0.4);
+}
+
+.px-btn:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.px-btn:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow:
+    0 -4px 0 0 var(--color-ink),
+    0 4px 0 0 var(--color-ink),
+    -4px 0 0 0 var(--color-ink),
+    4px 0 0 0 var(--color-ink),
+    inset 4px 4px 0 0 rgba(27, 42, 27, 0.3);
+}
+
+.px-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.px-btn[data-variant='secondary'] {
+  --bg: var(--color-paper-2);
+}
+
+.px-btn[data-variant='green'] {
+  --bg: var(--color-green);
+  --fg: var(--color-paper);
+}
+
+.px-btn[data-variant='danger'] {
+  --bg: var(--color-red);
+  --fg: var(--color-paper);
+}
+
+.px-btn[data-variant='ghost'] {
+  --bg: transparent;
+  box-shadow: none;
+  margin: 0;
+  padding: 10px 8px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.px-btn[data-variant='ghost']:active:not(:disabled) {
+  transform: none;
+}
+
+}
+
+@layer utilities {
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
